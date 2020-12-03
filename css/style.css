@@ -26,7 +26,7 @@ h1 {
 #icons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -35,7 +35,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: calc(100% / 5);
+    width: calc(100% / 5 - 40px);
     margin: 20px;
     padding: 20px;
     border: 1px solid black;
@@ -46,3 +46,4 @@ i {
     font-size: 30px;
     margin-bottom: 10px;
 }
+

@@ -56,12 +56,6 @@ $(document).ready(function () {
         family: "fas"
         },
         {
-        name: "apple-alt",
-        prefix: "fa-",
-        type: "vegetable",
-        family: "fas"
-        },
-        {
         name: "carrot",
         prefix: "fa-",
         type: "vegetable",
@@ -104,6 +98,12 @@ $(document).ready(function () {
         family: "fas"
         },
         {
+        name: "apple-alt",
+        prefix: "fa-",
+        type: "vegetable",
+        family: "fas"
+        },
+        {
         name: "tram",
         prefix: "fa-",
         type: "vehicle",
@@ -124,12 +124,35 @@ $(document).ready(function () {
     ];
     const colorsList = ["red", "green", "blue"];
 
-    const tagIcons = $("#icons"); 
+    const tagIcons = $("#icons");
+    const tagSelect = $("#type");
 
+    //array with obj color properties
     const iconsListColored = getListColored(iconsList, colorsList);
 
-    // console.log(iconsListColored);
+    //array with obj types
+    const typesList = getTypes (iconsListColored);
+
+    outputOptions (tagSelect, typesList);
+
     output(iconsListColored, tagIcons);
+
+    tagSelect.change(
+        function () {
+            const optionValue = $(this).val();
+
+            if (optionValue == "all") {
+                output(iconsListColored, tagIcons);
+            } else {
+                const filteredIcons = iconsListColored.filter(
+                    (element) => {
+                        return element.type == optionValue;
+                    }
+                );
+                output(filteredIcons, tagIcons);
+            }
+        }
+    );
 
 
     //END JS
@@ -186,4 +209,28 @@ function getListColored (array, arrayColors) {
     );
 
     return newArray;
+}
+
+function getTypes (array) {
+    const newArray = [];
+    
+    array.forEach(
+        (element) => {
+            if (newArray.includes(element.type) == false) {
+                newArray.push(element.type)
+            }
+        }
+    );
+
+    return newArray;
+}
+
+function outputOptions (select, arrayTypes) {
+    arrayTypes.forEach(
+        (element) => {
+            $(select).append(`
+            <option value="${element}">${element}</option>
+            `)
+        }
+    );
 }

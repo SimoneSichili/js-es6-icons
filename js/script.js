@@ -4,11 +4,27 @@
 // Utilizzando la funzione forEach e il template literal, visualizzare in pagina tutte le icone con il
 // proprio nome.
 
+// milestone 2:
+// definire un array di colori e associare ad ogni tipo di icona un colore.
+// Visualizzare le icone di colore diverso in base al tipo.
+
+// milestone 3:
+// aggiungere una select per filtrare le icone in base al tipo.
+// Popolare le options della select dinamicamente e, ogni volta che cambia il valore selezionato,
+// visualizzare le icone corrispondenti.
+
+
+// #1 Definire un array di oggetti
+// #2 Utilizzando la funzione forEach e il template literal, visualizzare in pagina tutte le icone con il proprio nome.
+// #3 Definire un array di colori
+// #4 Visualizzare le icone di colore diverso in base al tipo.
+// #5 Aggiungere una select per filtrare le icone in base al tipo.
+// #6 Popolare le options della select dinamicamente
+
 $(document).ready(function () {
     //START JS
 
-    // #1 definire un array di oggetti
-    const icons = [
+    const iconsList = [
         {
         name: "dog",
         prefix: "fa-",
@@ -106,28 +122,68 @@ $(document).ready(function () {
         family: "fas"
         }
     ];
+    const colorsList = ["red", "green", "blue"];
 
     const tagIcons = $("#icons"); 
 
+    const iconsListColored = getListColored(iconsList, colorsList);
 
-    // #2 Utilizzando la funzione forEach e il template literal, visualizzare in pagina tutte le icone con il proprio nome.
-    output(icons, tagIcons);
+    // console.log(iconsListColored);
+    output(iconsListColored, tagIcons);
 
 
     //END JS
 });
 
 // MY FUNCTIONS--------------------------
-function output(array, tag) {
+function output(array, tagContainer) {
+    
+    //clean html before append
+    tagContainer.html("");
+    
     array.forEach(
         (element) => {
+            
+            //destructuring
+            const {name, family, prefix, type, color} = element;
 
-            tag.append(`
+            // append to html
+            tagContainer.append(`
             <div>
-                <i class="${element.family} ${element.prefix}${element.name}"></i>
-                <div>${element.name.toUpperCase()}</div>
+                <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
+                <div>${name.toUpperCase()}</div>
             </div>
             `);
         }
     );
+}
+
+function getListColored (array, arrayColors) {
+
+    const newArray = array.map(
+        (element)=> {
+
+            //destructuring
+            const {name, family, prefix, type} = element;
+
+            // color conditions
+            let color;
+            if (type == "animal") {
+                color = arrayColors[0];
+            } else if (type == "vegetable") {
+                color = arrayColors[1];
+            } else if (type == "vehicle") {
+                color = arrayColors[2];
+            }
+
+            newElement = {
+                ...element,
+                color: color,
+            }
+
+            return newElement
+        }
+    );
+
+    return newArray;
 }

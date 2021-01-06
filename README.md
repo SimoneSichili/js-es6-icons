@@ -9,6 +9,7 @@
 * Css
 * Javascript ES6
 * JQuery
+* Font Awesome
 
 ## Workflow
 **#1** Define an array list of objects. Every object represent an icon with 3 properties: name, prefix, type and family.  
